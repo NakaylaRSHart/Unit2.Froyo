@@ -1,34 +1,3 @@
-// const dinner = {
-// cheeseburger: 12,
-// steak: 20,
-// soup: 8,
-// macAndCheese: 14,
-// soupAndSalad: 16
-// };
-
-// console.log(Object.values(dinner));
-
-// const prices = Object.values(dinner);
-// let totalCost = 0;
-
-// for( let i = 0; i < prices.length; i++){
-//   totalCost += prices[i];
-// }
-
-// console.log(totalCost);
-
-// function calculateCost(meal){
-//   let total = 0;
-
-//   for(const item in meal){
-//     total += meal[item];
-//   }
-//   return total;
-// }
-
-// console.log(calculateCost(dinner));
-
-
 /*
 -Make website prompt for flavors
 -Have users input be an array of strings
@@ -46,8 +15,10 @@ console.log(itemList);
 
 let froyoObject = {};
 
-//Iterates over array and updates the froyoObject
+//Iterates over array and updates the froyoObject 
+//I added the lower case to avoid case sensitive errors when counting.
 itemList.forEach(function (flavors){
+  flavors = flavors.trim().toLowerCase();
   froyoObject[flavors] = (froyoObject[flavors] || 0) + 1;
 });
 
@@ -60,5 +31,18 @@ function froyoList(choice) {
   return total;
 }
 
+//Removes duplicates and lets me keep the `amount of cups`
+function froyoList(choice){
+  const uniqueFlavors = new Set(Object.keys(choice));
+
+  const totalUnique = uniqueFlavors.size;
+
+  const totalItems = itemList.length;
+
+  return{ totalUnique, totalItems}
+}
+
 console.log(froyoObject);
-console.log('Total number of Froyo flavors: ' + froyoList(froyoObject));
+const { totalUnique, totalItems } = froyoList(froyoObject);
+console.log(`Total number of Froyo flavors: ${totalUnique}`);
+console.log(`Total number of cups bought: ${totalItems}`);
